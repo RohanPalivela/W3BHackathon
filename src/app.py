@@ -3,9 +3,6 @@ from dotenv import load_dotenv
 import os
 import requests
 import joblib
-from io import BytesIO
-from bs4 import BeautifulSoup
-import re
 
 load_dotenv()
 
@@ -37,9 +34,7 @@ def get_weather_data(lat, lon):
     if response.status_code == 200:
         # Extract required data
         weather_data = {
-            "ApparentTemperature": data['main']['feels_like'], # Feels like temperature
             "AirTemperature": data['main']['temp'],            # Actual air temperature
-            "DewPointTemperature": data['main'].get('dew_point', 'N/A'), # Dew Point Temperature (if available)
             "RelativeHumidity": data['main']['humidity'],      # Relative Humidity
             "WindSpeed": data['wind']['speed'],                # Wind Speed
             "WindDirection": data['wind']['deg']               # Wind Direction
@@ -48,6 +43,11 @@ def get_weather_data(lat, lon):
         weather_data = {"Error": data.get("message", "Unable to fetch data")}
 
     return weather_data
+
+def predict_power(weather_data):
+    # Load the pre-trained model from a .joblib file
+    model = joblib.load('model.joblib')
+    return model.predict(weather_data)
 
 if __name__ == '__main__':
     app.run(debug=True)
