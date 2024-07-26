@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import os
 import requests
 import joblib
+import pandas as pd
 
 load_dotenv()
 
@@ -39,10 +40,10 @@ def get_weather_data(lat, lon):
     if response.status_code == 200:
         # Extract required data
         weather_data = {
-            "AirTemperature": data['main']['temp'],            # Actual air temperature
-            "RelativeHumidity": data['main']['humidity'],      # Relative Humidity
-            "WindSpeed": data['wind']['speed'],                # Wind Speed
-            "WindDirection": data['wind']['deg']               # Wind Direction
+            "temperature_2m": data['main']['temp'],            # Actual air temperature
+            "relativehumidity_2m": data['main']['humidity'],      # Relative Humidity
+            "windspeed_10m": data['wind']['speed'],                # Wind Speed
+            "winddirection_10m": data['wind']['deg']               # Wind Direction
         }
     else:
         weather_data = {"Error": data.get("message", "Unable to fetch data")}
@@ -51,7 +52,12 @@ def get_weather_data(lat, lon):
 
 def predict_power(weather_data):
     global model
-    return model.predict(weather_data)
+    # Convert the weather data into a DataFrame
+    data_df = pd.DataFrame([weather_data])
+    
+    # Predict the power generation
+    prediction = model.predict(data_df)
+    return prediction[0]
 
 if __name__ == '__main__':
     app.run(debug=True)
