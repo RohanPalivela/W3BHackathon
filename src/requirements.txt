@@ -2,4 +2,4 @@ flask
 requests
 python-dotenv
 joblib
-sklearn
+scikit-learn
