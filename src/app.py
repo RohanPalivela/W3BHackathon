@@ -50,6 +50,28 @@ def get_weather_data(lat, lon):
 
     return weather_data
 
+# Function to get weather data based on temperature, humidity, wind speed, and wind direction
+def get_weather_data(temperature, humidity, windspeed, winddirection):
+    # OpenWeatherMap API endpoint for current weather data using coordinates
+    url = f"http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={WEATHER_API_KEY}&units=metric"
+
+    # Make a GET request to fetch the raw weather data
+    response = requests.get(url)
+    data = response.json()
+
+    if response.status_code == 200:
+        # Extract required data
+        weather_data = {
+            "temperature_2m": temperature,            # Actual air temperature
+            "relativehumidity_2m": humidity,      # Relative Humidity
+            "windspeed_10m": windspeed,                # Wind Speed
+            "winddirection_10m": winddirection              # Wind Direction
+        }
+    else:
+        weather_data = {"Error": data.get("message", "Unable to fetch data")}
+
+    return weather_data
+
 def predict_power(weather_data):
     global model
     # Convert the weather data into a DataFrame
