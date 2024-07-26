@@ -1,5 +1,8 @@
+from dotenv import load_dotenv
 import requests
 import os
+
+load_dotenv()
 
 MODEL_URL = os.getenv('MODEL_URL')
 
