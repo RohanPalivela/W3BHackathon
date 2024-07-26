@@ -20,5 +20,19 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('latitude').value = event.latlng.lat;
         document.getElementById('longitude').value = event.latlng.lng;
         
+        
+        fetch("/getWeatherData?long="+event.latlng.lng+"&lat="+event.latlng.lat)
+        .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then(data => {
+            console.log(data);
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
     })
 });
