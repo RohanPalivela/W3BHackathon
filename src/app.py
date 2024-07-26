@@ -23,17 +23,12 @@ def queryWeather():
     lat = request.args.get('lat') 
     # Get weather data
     weather_data = get_weather_data(lat, long)
-    print(weather_data)
-    return jsonify(
-        confirmation="WORKED",
-        m_long=long,
-        m_lat=lat 
-    )
+    return jsonify(weather_data)
 
 # Function to get weather data based on latitude and longitude
 def get_weather_data(lat, lon):
     # OpenWeatherMap API endpoint for current weather data using coordinates
-    url = f"http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={WEATHER_API_KEY}&units=metric"
+    url = f"http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={os.getenv('WEATHER_API_KEY')}&units=metric"
 
     # Make a GET request to fetch the raw weather data
     response = requests.get(url)
