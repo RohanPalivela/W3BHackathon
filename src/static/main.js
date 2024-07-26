@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', function() {
     let mapOptions = {
         center:[32, -96],
@@ -20,23 +21,21 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('latitude').value = event.latlng.lat;
         document.getElementById('longitude').value = event.latlng.lng;
         
-        
         var data = fetch("/getWeatherData?long="+event.latlng.lng+"&lat="+event.latlng.lat)
         .then(response => {
             if (!response.ok) {
               throw new Error('Network response was not ok');
             }
+            console.log("Working");
             return response.json();
           })
           .then(data => {
-            console.log(data);
+            console.log((data['power'] * 100).toFixed(2));
+            var finalVal = document.getElementById('finalVal');
+            finalVal.innerHTML = (data['power'] * 100).toFixed(2)+"%";
           })
           .catch(error => {
             console.error('Error:', error);
           });
-
-          let finalVal = this.getElementById('finalVal');
-
-          finalVal.value = data['power'];
     })
 });

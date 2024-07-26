@@ -51,7 +51,7 @@ def get_weather_data(lat, lon):
     return weather_data
 
 # Function to get weather data based on temperature, humidity, wind speed, and wind direction
-def get_weather_data(temperature, humidity, windspeed, winddirection):
+def get_weather_data_inputs(temperature, humidity, windspeed, winddirection):
     # OpenWeatherMap API endpoint for current weather data using coordinates
     url = f"http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={WEATHER_API_KEY}&units=metric"
 
