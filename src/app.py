@@ -6,6 +6,9 @@ import joblib
 
 load_dotenv()
 
+# Load the pre-trained model from a .joblib file
+model = joblib.load('model.joblib')
+
 WEATHER_API_KEY = os.getenv('WEATHER_API_KEY')
 
 app=Flask(__name__)
@@ -20,7 +23,9 @@ def queryWeather():
     lat = request.args.get('lat') 
     # Get weather data
     weather_data = get_weather_data(lat, long)
-    return jsonify(weather_data)
+    return jsonify(
+        power=predict_power(weather_data)
+    )
 
 # Function to get weather data based on latitude and longitude
 def get_weather_data(lat, lon):
@@ -45,8 +50,7 @@ def get_weather_data(lat, lon):
     return weather_data
 
 def predict_power(weather_data):
-    # Load the pre-trained model from a .joblib file
-    model = joblib.load('model.joblib')
+    global model
     return model.predict(weather_data)
 
 if __name__ == '__main__':

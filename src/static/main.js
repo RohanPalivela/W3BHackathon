@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('longitude').value = event.latlng.lng;
         
         
-        fetch("/getWeatherData?long="+event.latlng.lng+"&lat="+event.latlng.lat)
+        var data = fetch("/getWeatherData?long="+event.latlng.lng+"&lat="+event.latlng.lat)
         .then(response => {
             if (!response.ok) {
               throw new Error('Network response was not ok');
@@ -34,5 +34,9 @@ document.addEventListener('DOMContentLoaded', function() {
           .catch(error => {
             console.error('Error:', error);
           });
+
+          let finalVal = this.getElementById('finalVal');
+
+          finalVal.value = data['power'];
     })
 });
