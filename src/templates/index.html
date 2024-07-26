@@ -3,9 +3,33 @@
   <head>
     <meta charset="UTF-8">
     <title>Solar Panel Efficiency Simulator</title>
+        
+    <!-- LEAFLET IMPORTS -->
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+
+
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/styling.css') }}" />
+    <script src="{{url_for('static', filename='main.js')}}"></script>
   </head>
 
   <body>
-    <h1>Hello World!</h1>
+    <div class="wrap">
+        
+      <form action="" class="form">
+          <input type="text" id="latitude" placeholder="latitude">
+          <input type="text" id="longitude" placeholder="longitude">
+      </form>
+  
+       <div id="map"></div>
+  </div>
   </body>
+  
 </html>
