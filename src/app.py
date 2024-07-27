@@ -58,11 +58,11 @@ def get_weather_data_inputs(temperature, humidity, windspeed, winddirection):
     # Make a GET request to fetch the raw weather data
     response = requests.get(url)
     data = response.json()
-
+    print(data)
     if response.status_code == 200:
         # Extract required data
         weather_data = {
-            "temperature_2m": temperature,            # Actual air temperature
+            "temperature_2m": c_to_f(temperature),            # Actual air temperature
             "relativehumidity_2m": humidity,      # Relative Humidity
             "windspeed_10m": windspeed,                # Wind Speed
             "winddirection_10m": winddirection              # Wind Direction
@@ -71,6 +71,9 @@ def get_weather_data_inputs(temperature, humidity, windspeed, winddirection):
         weather_data = {"Error": data.get("message", "Unable to fetch data")}
 
     return weather_data
+
+def c_to_f(c):
+    return (((float) (c)) * (9/5) + 32)
 
 def predict_power(weather_data):
     global model
