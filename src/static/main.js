@@ -24,7 +24,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let windDirIn = document.getElementById('wind-direction');
     
     btn.addEventListener("click", function() {
-
       fetch("/findPower?temp="+tempIn.value+"&hum="+humidityIn.value+"&speed="+windSpeedIn.value+"&dir="+windDirIn.value)
       .then(response => {
         if (!response.ok) {
@@ -36,7 +35,18 @@ document.addEventListener('DOMContentLoaded', function() {
       .then(result => {
         console.log(result['power']);
           let finalVal = document.getElementById('finalVal');
-          finalVal.innerHTML = (result['power'] * 100).toFixed(2)+"%";
+          let val = parseFloat((result['power'] * 100).toFixed(2));
+          finalVal.innerHTML = val+"%";
+          if (val < 15) {
+            console.log("red")
+            finalVal.style.color = red;
+          } else if (val < 30) {
+            console.log("yellow")
+            finalVal.style.color = yellow;
+          } else {
+            console.log("green")
+            finalVal.style.color = green;
+          }
       })
       .catch(error => {
         console.error('Error:', error);

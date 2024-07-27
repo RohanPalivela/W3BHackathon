@@ -85,7 +85,7 @@ nav a {
 }
 
 #map {
-    height: 600px;
+    height: 570px;
     width: 100%;
     border-radius: 8px;
     margin-bottom: 20px;
@@ -99,7 +99,9 @@ nav a {
 }
 
 #finalVal {
-    font-size: 50px;
+    margin-top: 70px;
+    font-size: 70px;
+    color:black;
 }
 
 .form {
