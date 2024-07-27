@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
         humidityIn.value = response[0]['relativehumidity_2m'];
         windSpeedIn.value = response[0]['windspeed_100m'];
         windDirIn.value = response[0]['winddirection_100m'];
-        location.value = response[1][0] + ", " + response[1][1];
+        location.innerHTML = response[1][0] + ", " + response[1][1];
         return response;
       }).catch(error => {
         console.error('Error:', error);
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function getPower(response) {
     console.log(response);
-    fetch("/findPower?temp=" + response['temperature_2m'] + "&hum=" + response['relativehumidity_2m'] + "&speed=" + response['windspeed_100m'] + "&dir=" + response['winddirection_100m'])
+    fetch("/findPower?temp=" + response[0]['temperature_2m'] + "&hum=" + response[0]['relativehumidity_2m'] + "&speed=" + response[0]['windspeed_100m'] + "&dir=" + response[0]['winddirection_100m'])
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -66,8 +66,8 @@ document.addEventListener('DOMContentLoaded', function () {
           console.log("red")
           finalVal.style.color = "red";
         } else if (val < 30) {
-          console.log("yellow")
-          finalVal.style.color = "yellow";
+          console.log("orange")
+          finalVal.style.color = "orange";
         } else {
           console.log("green")
           finalVal.style.color = "green";

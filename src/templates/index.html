@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>Solar Panel Efficiency Simulator</title>
+    <title>WindMax</title>
       
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,8 +26,7 @@
 
   <body>
     <header class="spaced">
-      <h1 id="title">Greentech Map</h1>
-      <h1 id="location"></h1>
+      <h1 id="title">WindMax</h1>
       <nav>
           <ul>
               <li><a href="#home">Home</a></li>
@@ -41,20 +40,29 @@
     <div class="mapMode">
       <div class="spaced">
         <h1 class="montserrat-heading">Map Mode</h1>
+        <h1 id="location"></h1>
       </div>
       
       <div id="map"></div>
-      <form action="" class="form spaced">
-          <p>Latitude</p>
-          <div class="inputBoxHoriz">
-            <input type="number" id="latitude" placeholder="Latitude">
-            <h4>°</h4>
+      <form action="" class="form">
+        <div class="latLong">
+          <div class="fifty">
+            <p>Latitude</p>
+            <div class="inputBoxHoriz">
+              <input type="number" id="latitude" placeholder="Latitude">
+              <h4>°</h4>
+            </div>
           </div>
-          <p>Longitude</p>
-          <div class="inputBoxHoriz">
-            <input type="number" id="longitude" placeholder="Longitude">
-            <h4>°</h4>
+          <div class="fifty">
+            <p>Longitude</p>
+            <div class="inputBoxHoriz">
+              <input type="number" id="longitude" placeholder="Longitude">
+              <h4>°</h4>
+            </div>
           </div>
+        </div>
+
+
       </form>
     </div>
     <div class="rightCol">

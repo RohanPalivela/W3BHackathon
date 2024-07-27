@@ -45,7 +45,19 @@ nav a {
 
 .spaced {
     display:flex;
+    flex-direction: row;
     justify-content: space-between;
+}
+
+#latitude, #longitude {
+    width:90%;
+}
+
+.latLong {
+    width:100%;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
 .mapMode {
@@ -59,7 +71,7 @@ nav a {
 
 .manualMode {
     width: 100%;
-    height: 55%;
+    height: 57%;
     margin: 20px 0;
     background-color: white;
     padding: 0 20px 20px 20px;
@@ -99,7 +111,8 @@ nav a {
 }
 
 #finalVal {
-    margin-top: 70px;
+    margin-top: 40px;
+    margin-bottom:0px;
     font-size: 70px;
     color:black;
 }
@@ -136,6 +149,10 @@ nav a {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
+}
+
+.fifty{
+    width:48%;
 }
 
 .form input:focus {

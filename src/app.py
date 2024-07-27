@@ -57,13 +57,13 @@ def get_weather_data(lat, lon):
 # Function to get weather data based on temperature, humidity, wind speed, and wind direction
 @app.route('/findPower')
 def get_power():
+    print(request.args.get('temp'), request.args.get('hum'), request.args.get('speed'), request.args.get('dir') )
     weather_data = {
         "temperature_2m": c_to_f(request.args.get('temp')),            # Actual air temperature
         "relativehumidity_2m": request.args.get('hum'),      # Relative Humidity
         "windspeed_100m": request.args.get('speed'),                # Wind Speed
         "winddirection_100m": request.args.get('dir')              # Wind Direction
     }
-    print(request.args.get('temp'), request.args.get('hum'), request.args.get('speed'), request.args.get('dir') )
     numb = predict_power(weather_data)
     print(numb)
     return jsonify(
