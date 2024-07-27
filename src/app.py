@@ -40,14 +40,14 @@ def get_weather_data(lat, lon):
     if response.status_code == 200:
         # Extract required data
         weather_data = {
-            "temperature_2m": data['main']['temp'],            # Actual air temperature
+            "temperature_2m": c_to_f(data['main']['temp']),            # Actual air temperature
             "relativehumidity_2m": data['main']['humidity'],      # Relative Humidity
             "windspeed_10m": data['wind']['speed'],                # Wind Speed
             "winddirection_10m": data['wind']['deg']               # Wind Direction
         }
     else:
         weather_data = {"Error": data.get("message", "Unable to fetch data")}
-
+    
     return weather_data
 
 # Function to get weather data based on temperature, humidity, wind speed, and wind direction
@@ -58,7 +58,6 @@ def get_weather_data_inputs(temperature, humidity, windspeed, winddirection):
     # Make a GET request to fetch the raw weather data
     response = requests.get(url)
     data = response.json()
-    print(data)
     if response.status_code == 200:
         # Extract required data
         weather_data = {
@@ -69,7 +68,7 @@ def get_weather_data_inputs(temperature, humidity, windspeed, winddirection):
         }
     else:
         weather_data = {"Error": data.get("message", "Unable to fetch data")}
-
+    
     return weather_data
 
 def c_to_f(c):
