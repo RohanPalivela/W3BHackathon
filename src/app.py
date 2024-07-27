@@ -35,6 +35,8 @@ def get_weather_data(lat, lon):
     response = requests.get(url)
     data = response.json()
 
+    print(data)
+
     if response.status_code == 200:
         # Extract required data
         weather_data = {
@@ -64,7 +66,8 @@ def get_weather_data_inputs():
     )
 
 def c_to_f(c):
-    return round((((float) (c)) * (9/5) + 32),2)
+    c = float(c)
+    return round((c * (9/5) + 32),2)
 
 def predict_power(weather_data):
     global model

@@ -59,7 +59,7 @@ nav a {
 
 .manualMode {
     width: 100%;
-    height: 45%;
+    height: 55%;
     margin: 20px 0;
     background-color: white;
     padding: 0 20px 20px 20px;
@@ -69,7 +69,7 @@ nav a {
 
 .resultMode {
     width:100%;
-    height: 40%;
+    height: 30%;
     margin: 20px 0;
     background-color: white;
     padding: 0 20px 20px 20px;
@@ -106,18 +106,29 @@ nav a {
 
 .form {
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: space-between;
     gap: 10px;
 }
 
 .form input {
-    flex: 1 1 calc(50% - 10px);
     padding: 15px;
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 1em;
     transition: border-color 0.3s ease;
+}
+
+.form div input {
+    width:80%;
+}
+
+.inputBox {
+    width:100%;
+    display:flex;
+    justify-content: space-between;
+    flex-direction: row;
 }
 
 .form input:focus {
@@ -169,4 +180,9 @@ nav a {
 .button-green:focus {
     outline: none;
     box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.5);
+}
+
+p {
+    margin:0px;
+    font-weight:700;
 }

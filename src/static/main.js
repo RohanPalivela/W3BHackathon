@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
   let longitude;
 
   function fetchWeatherData(longitude_, latitude_) {
-    fetch("/getWeatherData?long=" + longitude_ + "&lat=" + latitude_)
+    return fetch("/getWeatherData?long=" + longitude_ + "&lat=" + latitude_)
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -39,13 +39,15 @@ document.addEventListener('DOMContentLoaded', function () {
         humidityIn.value = response['relativehumidity_2m'];
         windSpeedIn.value = response['windspeed_100m'];
         windDirIn.value = response['winddirection_100m'];
+        return response;
       }).catch(error => {
         console.error('Error:', error);
       });
   }
 
-  btn.addEventListener("click", function () {
-    fetch("/findPower?temp=" + tempIn.value + "&hum=" + humidityIn.value + "&speed=" + windSpeedIn.value + "&dir=" + windDirIn.value)
+  function getPower(response) {
+    console.log(response);
+    fetch("/findPower?temp=" + response['temperature_2m'] + "&hum=" + response['relativehumidity_2m'] + "&speed=" + response['windspeed_100m'] + "&dir=" + response['winddirection_100m'])
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -60,18 +62,58 @@ document.addEventListener('DOMContentLoaded', function () {
         finalVal.innerHTML = val + "%";
         if (val < 15) {
           console.log("red")
-          finalVal.style.color = red;
+          finalVal.style.color = "red";
         } else if (val < 30) {
           console.log("yellow")
-          finalVal.style.color = yellow;
+          finalVal.style.color = "yellow";
         } else {
           console.log("green")
-          finalVal.style.color = green;
+          finalVal.style.color = "green";
         }
       })
       .catch(error => {
         console.error('Error:', error);
       });
+  }
+
+  tempIn.addEventListener('input', function () {
+    result = {
+      'temperature_2m': tempIn.value,
+      'relativehumidity_2m': humidityIn.value,
+      'windspeed_100m': windSpeedIn.value,
+      'winddirection_100m': windDirIn.value
+    }
+    getPower(result);
+  }, false);
+
+  humidityIn.addEventListener('input', function () {
+    result = {
+      'temperature_2m': tempIn.value,
+      'relativehumidity_2m': humidityIn.value,
+      'windspeed_100m': windSpeedIn.value,
+      'winddirection_100m': windDirIn.value
+    }
+    getPower(result);
+  }, false);
+
+  windSpeedIn.addEventListener('input', function () {
+    result = {
+      'temperature_2m': tempIn.value,
+      'relativehumidity_2m': humidityIn.value,
+      'windspeed_100m': windSpeedIn.value,
+      'winddirection_100m': windDirIn.value
+    }
+    getPower(result);
+  }, false);
+
+  windDirIn.addEventListener('input', function () {
+    result = {
+      'temperature_2m': tempIn.value,
+      'relativehumidity_2m': humidityIn.value,
+      'windspeed_100m': windSpeedIn.value,
+      'winddirection_100m': windDirIn.value
+    }
+    getPower(result);
   }, false);
 
   let marker = null;
@@ -92,7 +134,10 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('longitude').value = longitude;
 
     // UPDATE LIVE DATA 4 INPUTS
-    fetchWeatherData(longitude, latitude)
+    fetchWeatherData(longitude, latitude).then(results => {
+      getPower(results);
+    })
+    
   })
 
 
@@ -101,11 +146,33 @@ document.addEventListener('DOMContentLoaded', function () {
 
   latInput.addEventListener('input', function (event) {
     latitude = event.target.value;
-    fetchWeatherData(longitude, latitude);
+
+    // REMOVING MARKER 
+    if (marker !== null) {
+      map.removeLayer(marker);
+    }
+    // SETTING DOWN MARKER
+    marker = L.marker([latInput.value, longInput.value]).addTo(map);
+
+    fetchWeatherData(longitude, latitude).then(results => {
+      getPower(results);
+    })
   });
 
   longInput.addEventListener('input', function (event) {
     longitude = event.target.value;
-    fetchWeatherData(longitude, latitude);
+
+    // REMOVING MARKER 
+    if (marker !== null) {
+      map.removeLayer(marker);
+    }
+    // SETTING DOWN MARKER
+    marker = L.marker([latInput.value, longInput.value]).addTo(map);
+
+    fetchWeatherData(longitude, latitude).then(results => {
+      getPower(results);
+    })
   });
+
+  
 });

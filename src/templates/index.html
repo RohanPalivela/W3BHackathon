@@ -52,12 +52,27 @@
       <div class="manualMode">
         <center><h1 class="montserrat-heading">Real-Time Data</h1></center>
         <form action="" class="form">
-            <input type="number" id="temperature" placeholder="Temperature (°C)">
-            <input type="number" id="humidity" placeholder="Humidity (%)">
-            <input type="number" id="wind-speed" placeholder="Wind Speed (m/s)">
-            <input type="number" id="wind-direction" placeholder="Wind Direction (deg)">
+          <p>Temperature</p>
+            <div class="inputBox">
+              <input type="number" id="temperature" placeholder="Temperature (°F)">
+              <h4>°F</h4>
+            </div>
+            <p>Humidity</p>
+            <div class="inputBox">
+              <input type="number" id="humidity" placeholder="Humidity (%)">
+              <h4>%</h4>
+            </div>
+            <p>Wind Speed</p>
+            <div class="inputBox">
+              <input type="number" id="wind-speed" placeholder="Wind Speed (m/s)">
+              <h5>m/s</h5>
+            </div>
+            <p>Wind Direction</p>
+            <div class="inputBox">
+              <input type="number" id="wind-direction" placeholder="Wind Direction (deg)">
+              <h4>°</h4>
+            </div>
         </form>
-        <button class="button button-green">Calculate</button>
       </div>
       <div class="resultMode">
         <center>
