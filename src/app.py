@@ -42,8 +42,8 @@ def get_weather_data(lat, lon):
         weather_data = {
             "temperature_2m": c_to_f(data['main']['temp']),            # Actual air temperature
             "relativehumidity_2m": data['main']['humidity'],      # Relative Humidity
-            "windspeed_10m": data['wind']['speed'],                # Wind Speed
-            "winddirection_10m": data['wind']['deg']               # Wind Direction
+            "windspeed_100m": data['wind']['speed'],                # Wind Speed
+            "winddirection_100m": data['wind']['deg']               # Wind Direction
         }
     else:
         weather_data = {"Error": data.get("message", "Unable to fetch data")}
@@ -63,8 +63,8 @@ def get_weather_data_inputs(temperature, humidity, windspeed, winddirection):
         weather_data = {
             "temperature_2m": c_to_f(temperature),            # Actual air temperature
             "relativehumidity_2m": humidity,      # Relative Humidity
-            "windspeed_10m": windspeed,                # Wind Speed
-            "winddirection_10m": winddirection              # Wind Direction
+            "windspeed_100m": windspeed,                # Wind Speed
+            "winddirection_100m": winddirection              # Wind Direction
         }
     else:
         weather_data = {"Error": data.get("message", "Unable to fetch data")}
