@@ -47,7 +47,6 @@ def get_weather_data(lat, lon):
         }
     else:
         weather_data = {"Error": data.get("message", "Unable to fetch data")}
-    
     return weather_data
 
 # Function to get weather data based on temperature, humidity, wind speed, and wind direction

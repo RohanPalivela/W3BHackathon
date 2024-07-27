@@ -19,10 +19,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     
         marker = L.marker([event.latlng.lat , event.latlng.lng]).addTo(map);
-        document.getElementById('latitude').value = event.latlng.lat;
-        document.getElementById('longitude').value = ((event.latlng.lng + 180) % 360) - 180;
+
+        let latitude = event.latlng.lat;
+        let longitude = ((event.latlng.lng + 180) % 360) - 180;
+        document.getElementById('latitude').value = latitude;
+        document.getElementById('longitude').value = longitude;
         
-        var data = fetch("/getWeatherData?long="+event.latlng.lng+"&lat="+event.latlng.lat)
+        var data = fetch("/getWeatherData?long="+longitude+"&lat="+latitude)
         .then(response => {
             if (!response.ok) {
               throw new Error('Network response was not ok');
