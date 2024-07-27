@@ -3,7 +3,12 @@ document.addEventListener('DOMContentLoaded', function() {
     let mapOptions = {
         center:[32, -96],
         zoom:5,
-        minZoom:3,
+        minZoom:2,
+        noWrap: true,
+        bounds: [
+          [-90, -180],
+          [90, 180]
+        ]
     }
     
     let map = new L.map('map' , mapOptions);
