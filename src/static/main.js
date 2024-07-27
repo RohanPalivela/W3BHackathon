@@ -2,7 +2,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     let mapOptions = {
         center:[32, -96],
-        zoom:7
+        zoom:5,
+        minZoom:3,
     }
     
     let map = new L.map('map' , mapOptions);
