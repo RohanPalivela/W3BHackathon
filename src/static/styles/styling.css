@@ -130,3 +130,41 @@ nav a {
     column-gap: 30px;
     flex-grow:1;
 }
+
+/* General button styles */
+.button {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    width:100%;
+    margin: 20px 0px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Green button styles */
+.button-green {
+    background-color: #28a745;
+    color: #fff;
+}
+
+/* Hover effects */
+.button-green:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+/* Active effects */
+.button-green:active {
+    background-color: #1e7e34;
+    transform: scale(0.95);
+}
+
+/* Focus effects */
+.button-green:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.5);
+}
