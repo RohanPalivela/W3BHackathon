@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
         marker = L.marker([event.latlng.lat , event.latlng.lng]).addTo(map);
         document.getElementById('latitude').value = event.latlng.lat;
-        document.getElementById('longitude').value = event.latlng.lng;
+        document.getElementById('longitude').value = ((event.latlng.lng + 180) % 360) - 180;
         
         var data = fetch("/getWeatherData?long="+event.latlng.lng+"&lat="+event.latlng.lat)
         .then(response => {
