@@ -131,6 +131,13 @@ nav a {
     flex-direction: row;
 }
 
+.inputBoxHoriz {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
 .form input:focus {
     border-color: #4CAF50;
     outline: none;
