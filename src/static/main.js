@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // SET LATITUDE AND LONGITUDE INPUTS
     latitude = event.latlng.lat;
-    longitude = ((event.latlng.lng + 180) % 360) - 180;
+    longitude = (event.latlng.lng / Math.abs(event.latlng.lng)) * (((Math.abs(event.latlng.lng) + 180) % 360) - 180);
     document.getElementById('latitude').value = latitude;
     document.getElementById('longitude').value = longitude;
 
