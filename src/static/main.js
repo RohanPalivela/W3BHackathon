@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
   let humidityIn = document.getElementById('humidity');
   let windSpeedIn = document.getElementById('wind-speed');
   let windDirIn = document.getElementById('wind-direction');
+  let location = document.getElementById('location');
 
   let latitude;
   let longitude;
@@ -35,10 +36,11 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log("Working");
         return response.json();
       }).then(response => {
-        tempIn.value = response['temperature_2m'];
-        humidityIn.value = response['relativehumidity_2m'];
-        windSpeedIn.value = response['windspeed_100m'];
-        windDirIn.value = response['winddirection_100m'];
+        tempIn.value = response[0]['temperature_2m'];
+        humidityIn.value = response[0]['relativehumidity_2m'];
+        windSpeedIn.value = response[0]['windspeed_100m'];
+        windDirIn.value = response[0]['winddirection_100m'];
+        location.value = response[1][0] + ", " + response[1][1];
         return response;
       }).catch(error => {
         console.error('Error:', error);
@@ -137,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function () {
     fetchWeatherData(longitude, latitude).then(results => {
       getPower(results);
     })
-    
+
   })
 
 
@@ -174,5 +176,5 @@ document.addEventListener('DOMContentLoaded', function () {
     })
   });
 
-  
+
 });

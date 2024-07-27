@@ -45,13 +45,18 @@ def get_weather_data(lat, lon):
             "windspeed_100m": data['wind']['speed'],                # Wind Speed
             "winddirection_100m": data['wind']['deg']               # Wind Direction
         }
+
+        location_data = [
+            data['name'],
+            data['sys']['country']
+        ]
     else:
         weather_data = {"Error": data.get("message", "Unable to fetch data")}
-    return weather_data
+    return [weather_data, location_data]
 
 # Function to get weather data based on temperature, humidity, wind speed, and wind direction
 @app.route('/findPower')
-def get_weather_data_inputs():
+def get_power():
     weather_data = {
         "temperature_2m": c_to_f(request.args.get('temp')),            # Actual air temperature
         "relativehumidity_2m": request.args.get('hum'),      # Relative Humidity
