@@ -8,7 +8,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from meteostat import Point, Monthly
-import io
 
 load_dotenv()
 
@@ -40,7 +39,7 @@ def get_weather_data(lat, lon):
     response = requests.get(url)
     data = response.json()
 
-    print(data)
+    # print(data)
 
     if response.status_code == 200:
         # Extract required data
@@ -62,7 +61,7 @@ def get_weather_data(lat, lon):
 # Function to get weather data based on temperature, humidity, wind speed, and wind direction
 @app.route('/findPower')
 def get_power():
-    print(request.args.get('temp'), request.args.get('hum'), request.args.get('speed'), request.args.get('dir') )
+    # print(request.args.get('temp'), request.args.get('hum'), request.args.get('speed'), request.args.get('dir') )
     weather_data = {
         "temperature_2m": c_to_f(request.args.get('temp')),            # Actual air temperature
         "relativehumidity_2m": request.args.get('hum'),      # Relative Humidity
@@ -70,7 +69,7 @@ def get_power():
         "winddirection_100m": request.args.get('dir')              # Wind Direction
     }
     numb = predict_power(weather_data)
-    print(numb)
+    # print(numb)
     return jsonify(
         power=numb
     )
@@ -91,7 +90,8 @@ def predict_power(weather_data):
 @app.route('/plot.png')
 def plot_png():
     # Define location (latitude, longitude)
-    location = Point(request.args.get('lat'), request.args.get('long'))  if request.args.get('lat') and request.args.get('long') else Point(32.7767, -96.7970)
+    print(request.args.get('lat'), request.args.get('long'))
+    location = Point(float(request.args.get('lat')), float(request.args.get('long')))  if request.args.get('lat') and request.args.get('long') else Point(32.7767, -96.7970)
 
     # Define time period (start and end)
     start = pd.Timestamp('2023-01-01')
@@ -121,7 +121,7 @@ def plot_png():
     plt.title('Monthly Average Temperature')
     plt.xlabel('Time')
     plt.ylabel('Temperature (°C)')
-    plt.xticks(pd.date_range(start=start, end=end, freq='M').strftime('%Y-%m'), rotation=45)
+    plt.xticks(pd.date_range(start=start, end=end, freq='M'), rotation=45)
 
     # Wind Speed
     plt.subplot(3, 1, 2)
@@ -129,7 +129,7 @@ def plot_png():
     plt.title('Monthly Average Wind Speed')
     plt.xlabel('Time')
     plt.ylabel('Wind Speed (km/h)')
-    plt.xticks(pd.date_range(start=start, end=end, freq='M').strftime('%Y-%m'), rotation=45)
+    plt.xticks(pd.date_range(start=start, end=end, freq='M'), rotation=45)
 
     plt.tight_layout()
 
