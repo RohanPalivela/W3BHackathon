@@ -6,6 +6,8 @@ load_dotenv()
 
 MODEL_URL = os.getenv('MODEL_URL')
 
+print(MODEL_URL)
+
 def download_file_from_dropbox(dropbox_url, destination):
     """Download a file from Dropbox using a direct download link."""
     response = requests.get(dropbox_url, stream=True)
