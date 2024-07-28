@@ -50,7 +50,11 @@ nav a {
 }
 
 #latitude, #longitude {
-    width:90%;
+    width:92%;
+}
+
+#location {
+    font-weight: 500;
 }
 
 .latLong {
@@ -129,7 +133,7 @@ nav a {
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 20px;
+    gap: 10px;
 }
 
 .form input {
