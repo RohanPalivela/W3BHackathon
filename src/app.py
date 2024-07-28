@@ -5,6 +5,10 @@ import requests
 import joblib
 import pandas as pd
 
+import matplotlib.pyplot as plt
+import seaborn as sns
+from meteostat import Point, Monthly
+
 load_dotenv()
 
 # Load the pre-trained model from a .joblib file
@@ -82,6 +86,60 @@ def predict_power(weather_data):
     # Predict the power generation
     prediction = model.predict(data_df)
     return prediction[0]
+
+@app.route('/plot.png')
+def plot_png():
+    # Define location (latitude, longitude)
+    location = Point(request.args.get('long'), request.args.get('lat'))  # Example: Berlin, Germany
+
+    # Define time period (start and end)
+    start = pd.Timestamp('2023-01-01')
+    end = pd.Timestamp('2023-12-31')
+
+    # Fetch monthly historical weather data
+    data = Monthly(location, start, end)
+    data = data.fetch()
+
+    # Extract relevant columns and convert units if necessary
+    temperature = data['tavg']
+    wind_speed = data['wspd']
+
+    # Create a DataFrame for easy plotting
+    df = pd.DataFrame({
+        'Temperature (°C)': temperature,
+        'Wind Speed (km/h)': wind_speed,
+    }, index=data.index)
+
+    # Plot the data
+    plt.figure(figsize=(14, 10))
+    sns.set(style="whitegrid")
+
+    # Temperature
+    plt.subplot(3, 1, 1)
+    sns.lineplot(data=df['Temperature (°C)'], color='r')
+    plt.title('Monthly Average Temperature')
+    plt.xlabel('Time')
+    plt.ylabel('Temperature (°C)')
+    plt.xticks(pd.date_range(start=start, end=end, freq='M').strftime('%Y-%m'), rotation=45)
+
+    # Wind Speed
+    plt.subplot(3, 1, 2)
+    sns.lineplot(data=df['Wind Speed (km/h)'], color='g')
+    plt.title('Monthly Average Wind Speed')
+    plt.xlabel('Time')
+    plt.ylabel('Wind Speed (km/h)')
+    plt.xticks(pd.date_range(start=start, end=end, freq='M').strftime('%Y-%m'), rotation=45)
+
+    plt.tight_layout()
+
+    # Save the plot to a BytesIO object
+    img = io.BytesIO()
+    plt.savefig(img, format='png')
+    img.seek(0)
+    plt.close()
+
+    return send_file(img, mimetype='image/png')
+
 
 if __name__ == '__main__':
     app.run(debug=True)

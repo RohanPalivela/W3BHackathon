@@ -140,6 +140,18 @@ document.addEventListener('DOMContentLoaded', function () {
       getPower(results);
     })
 
+    fetch("/plot.png?long=" + longitude_ + "&lat=" + latitude_)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        console.log("Working");
+        return response.json();
+      }).then(response => {
+        console.log(response);
+      }).catch(error => {
+        console.error('Error:', error);
+      });
   })
 
 
