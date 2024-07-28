@@ -2,6 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from meteostat import Point, Monthly, Daily
+import io
 
 # Define location (latitude, longitude)
 location = Point(52.5200, 13.4050)  # Example: Berlin, Germany
@@ -46,3 +47,12 @@ plt.xticks(pd.date_range(start=start, end=end, freq='M').strftime('%Y-%m'), rota
 
 plt.tight_layout()
 plt.show()
+plt.tight_layout()
+
+# Save the plot to a BytesIO object
+img = io.BytesIO()
+plt.savefig(img, format='png')
+img.seek(0)
+plt.close()
+
+return send_file(img, mimetype='image/png')

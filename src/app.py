@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for,render_template, request, jsonify
+from flask import Flask, redirect, url_for,render_template, request, jsonify, send_file
 from dotenv import load_dotenv
 import os
 import requests
@@ -8,6 +8,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from meteostat import Point, Monthly
+import io
 
 load_dotenv()
 
@@ -90,7 +91,7 @@ def predict_power(weather_data):
 @app.route('/plot.png')
 def plot_png():
     # Define location (latitude, longitude)
-    location = Point(request.args.get('long'), request.args.get('lat'))  # Example: Berlin, Germany
+    location = Point(request.args.get('lat'), request.args.get('long'))  if request.args.get('lat') and request.args.get('long') else Point(32.7767, -96.7970)
 
     # Define time period (start and end)
     start = pd.Timestamp('2023-01-01')
@@ -133,12 +134,9 @@ def plot_png():
     plt.tight_layout()
 
     # Save the plot to a BytesIO object
-    img = io.BytesIO()
-    plt.savefig(img, format='png')
-    img.seek(0)
-    plt.close()
-
-    return send_file(img, mimetype='image/png')
+    # img = io.BytesIO()
+    img = plt.savefig('static/images/plt.png')
+    return jsonify(confirmed= True)
 
 
 if __name__ == '__main__':
