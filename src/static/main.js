@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function () {
       getPower(results);
     })
 
-    fetch("/plot.png?long=" + longitude_ + "&lat=" + latitude_)
+    fetch("/plot?long=" + longitude + "&lat=" + latitude)
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
