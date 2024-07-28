@@ -148,9 +148,7 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log("Working");
         return response.json();
       }).then(response => {
-        if (response['confirmed'] == true) {
-          window.location.reload();
-        } 
+        console.log(response);
       }).catch(error => {
         console.error('Error:', error);
       });
